@@ -1,5 +1,6 @@
 package de.fhk.spacequest.vis.gui;
- 
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
@@ -9,37 +10,38 @@ import java.util.Properties;
 public class IniFile {
 
     Properties p;
-    String defaultIni = "default.ini";
+    String defaultIni = "templates/default.ini";
     String active, inactive, clockBG, clock, infopanel, text_bgd, slider, ufo, earth, moon, starfield;
 
-    public IniFile(){
+    public IniFile() {
         p = new Properties();
-        try{
-          p.load(new FileInputStream(defaultIni));
-          clockBG = p.getProperty("clockBG");
-          clock = p.getProperty("clock");
+        try {
+            File f = new File(defaultIni);
+            System.out.println(f.getAbsolutePath());
+            p.load(new FileInputStream(defaultIni));
+            clockBG = p.getProperty("clockBG");
+            clock = p.getProperty("clock");
 
-          active =  p.getProperty("active");
-          inactive =  p.getProperty("inactive");
-          infopanel =  p.getProperty("infopanel");
-          text_bgd =  p.getProperty("text_bgd");
-          slider =  p.getProperty("slider");
+            active = p.getProperty("active");
+            inactive = p.getProperty("inactive");
+            infopanel = p.getProperty("infopanel");
+            text_bgd = p.getProperty("text_bgd");
+            slider = p.getProperty("slider");
 
-          ufo = p.getProperty("ufo");
-          earth =  p.getProperty("earth");
-          moon =  p.getProperty("moon");
-          starfield =  p.getProperty("starfield");
+            ufo = p.getProperty("ufo");
+            earth = p.getProperty("earth");
+            moon = p.getProperty("moon");
+            starfield = p.getProperty("starfield");
 
-          p.list(System.out);
-          }
-        catch (Exception e) {
-          System.out.println(e);
+            p.list(System.out);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
-    public String get(int file){
+    public String get(int file) {
         //TODO Es sollte die vorläufige Integer Variable durch ein String ersetzt werden, sobald ab dem 28.07.11 die neue JDK7 erlaubt Strings in Switch-Abfragen zu verwenden
-        switch (file){
+        switch (file) {
             case (1):
                 return clockBG;
             case (2):
@@ -69,24 +71,24 @@ public class IniFile {
         return ("error");
     }
 
-      /**
-      *
-      * Beispiel INI-File:
-      * [clock]
-      * clockBG=pics/digitalClock.png
-      * clock=pics/clock.png
-      *
-      * [button]
-      * active=pics/Button_active.png
-      * inactive=pics/Button_inactive.png
-      * infopanel=pics/infopanel.png
-      * text_bgd=pics/text_bgd.png
-      * slider=pics/Button_slider.png
-      *
-      * [view]
-      * ufo =/pics/ufo.png
-      * earth=/pics/earth.png
-      * moon=/pics/moon.png
-      * starfield=pics/starfield.gif
+    /**
+     *
+     * Beispiel INI-File:
+     * [clock]
+     * clockBG=pics/digitalClock.png
+     * clock=pics/clock.png
+     *
+     * [button]
+     * active=pics/Button_active.png
+     * inactive=pics/Button_inactive.png
+     * infopanel=pics/infopanel.png
+     * text_bgd=pics/text_bgd.png
+     * slider=pics/Button_slider.png
+     *
+     * [view]
+     * ufo =/pics/ufo.png
+     * earth=/pics/earth.png
+     * moon=/pics/moon.png
+     * starfield=pics/starfield.gif
      */
 }

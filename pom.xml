@@ -1,6 +1,5 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.fhk</groupId>
     <artifactId>spacequest</artifactId>
@@ -19,7 +18,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                
+
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -43,39 +42,25 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.7.2</version>
-                <configuration>
-                    <systemProperties>
-                        <systemProperty>
-                            <key>org.lwjgl.librarypath</key>
-                            <value>${project.build.directory}/lib</value>
-                        </systemProperty>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-            
 
             <plugin>
-                  <artifactId>maven-assembly-plugin</artifactId>
-                  <version>2.2-beta-5</version>
-                  <executions>
-                      <execution>
-                          <id>bundle-project-sources</id>
-                          <phase>package</phase>
-                          <goals>
-                              <goal>single</goal>
-                          </goals>
-                          <configuration>
-                              <descriptors>
-                                  <descriptor>assembly.xml</descriptor>
-                              </descriptors>
-                          </configuration>
-                      </execution>
-                  </executions>
-              </plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <executions>
+                    <execution>
+                        <id>bundle-project-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -117,15 +102,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <systemProperties>
-                        <systemProperty>
-                            <key>org.lwjgl.librarypath</key>
-                            <value>${lwjgl.natives}</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <mainClass>${main.class}</mainClass>
-                    <argument>-classpath</argument>
-                    <classpath/>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-Djava.library.path=${lwjgl.natives}</argument>
+                        <argument>-classpath</argument>
+                        <classpath/>
+                        <argument>${main.class}</argument>
+                    </arguments>
                 </configuration>
             </plugin>
 
@@ -148,11 +131,13 @@
             <groupId>java3d</groupId>
             <artifactId>vecmath</artifactId>
             <version>1.3.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>1.6.2</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
@@ -161,9 +146,9 @@
             <classifier>${build.type}</classifier>
             <scope>compile</scope>
         </dependency>
- 
+
     </dependencies>
-  
+
     <repositories>
         <repository>
             <id>slick</id>
