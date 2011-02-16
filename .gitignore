@@ -28,3 +28,6 @@
 
 # Mac filesystem dust
 /.DS_Store
+
+# Log files
+/*.log
