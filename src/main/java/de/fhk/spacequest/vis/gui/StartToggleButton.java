@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
- 
+
 /**
  *
  * @author Robert Giacinto
@@ -18,9 +18,9 @@ public class StartToggleButton extends ToggleButton {
     public StartToggleButton(float x, float y, GUI gui, String s_active, String s_inactive) throws SlickException {
         super(x, y, 35, 35, gui);
 
-        active = new Image(s_active);
+        active = new Image(StartToggleButton.class.getResource(s_active).getFile());
         active.setAlpha(0.7f);
-        inactive = new Image(s_inactive);
+        inactive = new Image(StartToggleButton.class.getResource(s_inactive).getFile());
         inactive.setAlpha(0.7f);
     }
 

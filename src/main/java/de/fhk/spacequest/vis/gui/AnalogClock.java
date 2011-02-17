@@ -1,5 +1,5 @@
 package de.fhk.spacequest.vis.gui;
- 
+
 import org.joda.time.Period;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -54,7 +54,7 @@ public class AnalogClock extends GUIComponent {
 
 
 
-        clock = new Image(s_clock).getScaledCopy((int) width, (int) height);
+        clock = new Image(AnalogClock.class.getResource(s_clock).getFile()).getScaledCopy((int) width, (int) height);
         clock.setAlpha(0.8f);
         duration = new Period();
     }

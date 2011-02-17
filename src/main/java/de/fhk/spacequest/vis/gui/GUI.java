@@ -19,13 +19,13 @@ public final class GUI {
     private Spacequest spacequest;
     private boolean focus;
     private boolean paused;
-    IniFile IniFile;
+    IniFile iniFile;
 
-    public GUI(Spacequest spacequest, Input input, IniFile Inifile) throws SlickException {
+    public GUI(Spacequest spacequest, Input input, IniFile iniFile) throws SlickException {
         this.spacequest = spacequest;
         this.guiComponents = new ArrayList<GUIComponent>();
         this.input = input;
-        IniFile = Inifile;
+        this.iniFile = iniFile;
         initGUI();
     }
 
@@ -114,7 +114,7 @@ public final class GUI {
         */
 
         try{
-            for (GUIComponent gc : PropertyFile.createGUIElements("templates/default.xml", this)) {
+            for (GUIComponent gc : PropertyFile.createGUIElements("default.xml", this)) {
                 addCompoment(gc);
             }
         }

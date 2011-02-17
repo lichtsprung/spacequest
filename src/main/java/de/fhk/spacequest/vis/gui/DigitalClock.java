@@ -18,7 +18,7 @@ public class DigitalClock extends GUIComponent {
 
     public DigitalClock(float x, float y, GUI gui, String s_clockBG) throws SlickException {
         super(x, y, 375, 64, gui);
-        clockBG = new Image(s_clockBG);
+        clockBG = new Image(DigitalClock.class.getResource(s_clockBG).getFile());
         duration = new Period();
     }
 

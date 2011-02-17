@@ -1,6 +1,4 @@
 package de.fhk.spacequest.vis.gui;
-
-import de.fhk.spacequest.vis.Spacequest;
  
 /**
  * Grundklasse aller ToggleButtons, die durch ein Klick (de)aktiviert werden können.

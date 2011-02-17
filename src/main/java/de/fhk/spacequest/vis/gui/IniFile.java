@@ -1,7 +1,6 @@
 package de.fhk.spacequest.vis.gui;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -10,15 +9,14 @@ import java.util.Properties;
 public class IniFile {
 
     Properties p;
-    String defaultIni = "templates/default.ini";
+    String defaultIni = "default.ini";
     String active, inactive, clockBG, clock, infopanel, text_bgd, slider, ufo, earth, moon, starfield;
 
     public IniFile() {
         p = new Properties();
         try {
-            File f = new File(defaultIni);
-            System.out.println(f.getAbsolutePath());
-            p.load(new FileInputStream(defaultIni));
+            InputStream in = IniFile.class.getResourceAsStream(defaultIni);
+            p.load(in);
             clockBG = p.getProperty("clockBG");
             clock = p.getProperty("clock");
 
@@ -70,7 +68,6 @@ public class IniFile {
 
         return ("error");
     }
-
     /**
      *
      * Beispiel INI-File:

@@ -18,7 +18,7 @@ public final class RocketView extends VisObject {
 
     public RocketView(Rocket rocketModel, String s_ufo) throws SlickException {
         //TODO Es sollte ein passendes Bild geladen werden, vielleicht vom Lunar Lander?
-        texture = new Image(s_ufo);
+        texture = new Image(RocketView.class.getResource(s_ufo).getFile());
         setRocketModel(rocketModel);
     }
 

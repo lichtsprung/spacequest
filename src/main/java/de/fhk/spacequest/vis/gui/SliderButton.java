@@ -8,19 +8,19 @@ import org.newdawn.slick.SlickException;
  *
  * @author Adrian Wagner
  */
-public class SliderButton extends Button{
-    
+public class SliderButton extends Button {
+
     private Image texture;
     private Slider slider;
     public float value;
 
-    public SliderButton(float x, float y, Slider slider, GUI gui, String s_slider) throws SlickException{
+    public SliderButton(float x, float y, Slider slider, GUI gui, String s_slider) throws SlickException {
         super(x, y, 35, 35, false, gui);
 
         this.slider = slider;
         value = slider.width / 2;
 
-        texture = new Image(s_slider);
+        texture = new Image(SliderButton.class.getResource(s_slider).getFile());
         texture.setAlpha(0.7f);
     }
 
@@ -34,11 +34,11 @@ public class SliderButton extends Button{
                 gui.setFocus(true);
                 value = value + (newx - oldx);
 
-                if(value > slider.width) {
+                if (value > slider.width) {
                     value = slider.width;
                 }
 
-                if(value <= 0) {
+                if (value <= 0) {
                     value = 1;
                 }
             }
@@ -56,9 +56,6 @@ public class SliderButton extends Button{
         g.drawImage(texture, x, y);
     }
 
-
-
     protected void executeAction() {
-
     }
 }

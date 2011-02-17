@@ -14,7 +14,8 @@ public final class EarthView extends VisObject {
     private Earth earthModel;
 
     public EarthView(Earth earthModel, String s_earth) throws SlickException {
-        texture = new Image(s_earth);
+        System.out.println("");
+        texture = new Image(EarthView.class.getResource(s_earth).getFile());
 
         setEarthModel(earthModel);
     }
@@ -30,10 +31,10 @@ public final class EarthView extends VisObject {
         y = (float) earthModel.getR().y;
 
         poly = new Polygon();
-        poly.addPoint((float) (x - Earth.R ), (float) (y - Earth.R ));
-        poly.addPoint((float) (x + Earth.R ), (float) (y - Earth.R ));
-        poly.addPoint((float) (x + Earth.R ), (float) (y + Earth.R ));
-        poly.addPoint((float) (x - Earth.R ), (float) (y + Earth.R ));
+        poly.addPoint((float) (x - Earth.R), (float) (y - Earth.R));
+        poly.addPoint((float) (x + Earth.R), (float) (y - Earth.R));
+        poly.addPoint((float) (x + Earth.R), (float) (y + Earth.R));
+        poly.addPoint((float) (x - Earth.R), (float) (y + Earth.R));
     }
 
     @Override

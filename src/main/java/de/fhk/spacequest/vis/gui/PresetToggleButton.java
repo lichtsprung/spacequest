@@ -1,5 +1,5 @@
 package de.fhk.spacequest.vis.gui;
- 
+
 import de.fhk.spacequest.vis.Spacequest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +20,9 @@ public class PresetToggleButton extends ToggleButton {
     public PresetToggleButton(float x, float y, GUI gui, String s_active, String s_inactive) throws SlickException {
         super(x, y, 35, 35, gui);
 
-        active = new Image(s_active);
+        active = new Image(PresetToggleButton.class.getResource(s_active).getFile());
         active.setAlpha(0.7f);
-        inactive = new Image(s_inactive);
+        inactive = new Image(PresetToggleButton.class.getResource(s_inactive).getFile());
         inactive.setAlpha(0.7f);
     }
 

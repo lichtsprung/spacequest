@@ -73,7 +73,7 @@ public class Spacequest extends BasicGame {
     private boolean moonPhase;
     private boolean useCamPresets;
     private GUI gui;
-    IniFile IniFile = new IniFile();
+    IniFile iniFile;
     private int screenWidth, screenHeight;
 
     /**
@@ -85,6 +85,9 @@ public class Spacequest extends BasicGame {
 
     public Spacequest(int width, int height) {
         super("Spacequest");
+        System.out.println("vor ini");
+        iniFile = new IniFile();
+        System.out.println("nach ini");
         screenWidth = width;
         screenHeight = height;
 
@@ -105,7 +108,7 @@ public class Spacequest extends BasicGame {
 
         simulation = new Simulation(10 * 1000, 300 * 1000, false, false);
         simulation.updateSimulationState();
-        gui = new GUI(this, input, IniFile);
+        gui = new GUI(this, input, iniFile);
 
         cam = new Camera((float) (-Constants.LE), 0, screenWidth, screenHeight, 2.6053895E-5f, container.getGraphics());
         cam.loadPreset(Camera.presetEarth);
@@ -124,10 +127,10 @@ public class Spacequest extends BasicGame {
         rocketTrail.setClosed(false);
         rocketTrail.addPoint((float) currentState.getRocket().getR().x, (float) currentState.getRocket().getR().y);
 
-        earth = new EarthView(currentState.getEarth(), IniFile.get(9));
-        rocket = new RocketView(currentState.getRocket(), IniFile.get(8));
-        moon = new MoonView(currentState.getMoon(), IniFile.get(10));
-        starfield = new Image(IniFile.get(11)).getScaledCopy(screenWidth, screenHeight);
+        earth = new EarthView(currentState.getEarth(), iniFile.get(9));
+        rocket = new RocketView(currentState.getRocket(), iniFile.get(8));
+        moon = new MoonView(currentState.getMoon(), iniFile.get(10));
+        starfield = new Image(Spacequest.class.getResource(iniFile.get(11)).getFile()).getScaledCopy(screenWidth, screenHeight);
         starfield.setAlpha(0.3f);
         updateTextureScaling();
     }
