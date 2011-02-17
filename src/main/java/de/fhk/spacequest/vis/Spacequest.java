@@ -1,28 +1,22 @@
 package de.fhk.spacequest.vis;
 
-import de.fhk.spacequest.simulation.Constants;
 import de.fhk.spacequest.controlphases.ControlPhase;
+import de.fhk.spacequest.simulation.Constants;
 import de.fhk.spacequest.simulation.ResultVector;
 import de.fhk.spacequest.simulation.Simulation;
 import de.fhk.spacequest.vis.gui.GUI;
 import de.fhk.spacequest.vis.gui.IniFile;
+import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Polygon;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Polygon;
 
 /**
  * Die Hauptklasse der Visualisierung.
  * Hier wird die Simulation gestartet und die Aktualisierung der Simulation
  * getriggert.
- * 
+ *
  * @author Robert Giacinto
  */
 public class Spacequest extends BasicGame {
@@ -68,7 +62,7 @@ public class Spacequest extends BasicGame {
      */
     private Polygon earthTrail, moonTrail, rocketTrail;
     /**
-     * <code>true</code>, wenn Rakete in der Nähe vom Mond. 
+     * <code>true</code>, wenn Rakete in der Nähe vom Mond.
      */
     private boolean moonPhase;
     private boolean useCamPresets;
@@ -85,9 +79,7 @@ public class Spacequest extends BasicGame {
 
     public Spacequest(int width, int height) {
         super("Spacequest");
-        System.out.println("vor ini");
         iniFile = new IniFile();
-        System.out.println("nach ini");
         screenWidth = width;
         screenHeight = height;
 
@@ -226,7 +218,7 @@ public class Spacequest extends BasicGame {
      * Zeichnet die Visualisierung der Simulation-
      *
      * @param container der Container, in dem die Simulation abläuft
-     * @param g das Grafikobjekt
+     * @param g         das Grafikobjekt
      * @throws SlickException wirft Exception, wenn etwas nicht funktionieren sollte
      */
     public void render(GameContainer container, Graphics g) throws SlickException {
