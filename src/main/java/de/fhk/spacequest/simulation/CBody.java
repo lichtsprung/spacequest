@@ -4,7 +4,7 @@ import javax.vecmath.Vector2d;
 
 /**
  * Grundklasse aller Himmelskörper.
- * 
+ *
  * @author Robert Giacinto
  */
 public abstract class CBody {
@@ -17,14 +17,14 @@ public abstract class CBody {
     /**
      * Erstellt einen neuen Himmelskörper.
      */
-    public CBody() {
+    protected CBody() {
         r = new Vector2d();
     }
 
 
-
     /**
      * Gibt die aktuelle Position des Himmelskörpers zurück.
+     *
      * @return die aktuelle Position des Himmelskörpers
      */
     public Vector2d getR() {

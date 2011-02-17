@@ -23,35 +23,34 @@ public class AnalogClock extends GUIComponent {
     /**
      * Erstellt eine Stoppuhr an der Position (x,y).
      *
-     * @param x X-Koordinate der Uhr
-     * @param y Y-Koordinate der Uhr
+     * @param x         X-Koordinate der Uhr
+     * @param y         Y-Koordinate der Uhr
      * @param clockSize der Radius der Uhr
-     * @param gui Referenz auf die GUI 
+     * @param gui       Referenz auf die GUI
      * @throws SlickException
      */
     public AnalogClock(float x, float y, float clockSize, GUI gui, String s_clock) throws SlickException {
-        super(x, y, 2 * clockSize, 2 * clockSize, gui);
+        super(x, y, 2.0F * clockSize, 2.0F * clockSize, gui);
         radius1 = clockSize;
         radius2 = 0.7f * clockSize;
 
         smLines = new Line[60];
         hourLines = new Line[12];
 
-        float mx = x + (width / 2) + 2;
-        float my = y + (height / 2) + 2;
+        float mx = x + (width / 2.0F) + 2.0F;
+        float my = y + (height / 2.0F) + 2.0F;
 
         for (int i = 0; i < 60; i++) {
-            float cx = (float) (mx + radius1 * Math.cos(Math.toRadians(i * 6)));
-            float cy = (float) (my + radius1 * Math.sin(Math.toRadians(i * 6)));
+            float cx = (float) ((double) mx + (double) radius1 * StrictMath.cos(Math.toRadians((double) (i * 6))));
+            float cy = (float) ((double) my + (double) radius1 * StrictMath.sin(Math.toRadians((double) (i * 6))));
             smLines[(i + 15) % 60] = new Line(mx, my, cx, cy);
         }
 
         for (int i = 0; i < 12; i++) {
-            float cx = (float) (mx + radius2 * Math.cos(Math.toRadians(i * 30)));
-            float cy = (float) (my + radius2 * Math.sin(Math.toRadians(i * 30)));
+            float cx = (float) ((double) mx + (double) radius2 * StrictMath.cos(Math.toRadians((double) (i * 30))));
+            float cy = (float) ((double) my + (double) radius2 * StrictMath.sin(Math.toRadians((double) (i * 30))));
             hourLines[(i + 3) % 12] = new Line(mx, my, cx, cy);
         }
-
 
 
         clock = new Image(AnalogClock.class.getResource(s_clock).getFile()).getScaledCopy((int) width, (int) height);
@@ -97,7 +96,7 @@ public class AnalogClock extends GUIComponent {
 
     /**
      * Gibt die Millisekunden der Simulationszeitspanne zurück.
-     * 
+     *
      * @return die vergangenen Millisekunden
      */
     public int getMilliSeconds() {
@@ -108,18 +107,18 @@ public class AnalogClock extends GUIComponent {
     public void mouseDragged(int i, int i1, int i2, int i3) {
         super.mouseDragged(i, i1, i2, i3);
 
-        float mx = x + (width / 2) + 2;
-        float my = y + (height / 2) + 2;
+        float mx = x + (width / 2.0F) + 2.0F;
+        float my = y + (height / 2.0F) + 2.0F;
 
         for (int k = 0; k < 60; k++) {
-            float cx = (float) (mx + radius1 * Math.cos(Math.toRadians(k * 6)));
-            float cy = (float) (my + radius1 * Math.sin(Math.toRadians(k * 6)));
+            float cx = (float) ((double) mx + (double) radius1 * StrictMath.cos(Math.toRadians((double) (k * 6))));
+            float cy = (float) ((double) my + (double) radius1 * StrictMath.sin(Math.toRadians((double) (k * 6))));
             smLines[(k + 15) % 60] = new Line(mx, my, cx, cy);
         }
 
         for (int k = 0; k < 12; k++) {
-            float cx = (float) (mx + radius2 * Math.cos(Math.toRadians(k * 30)));
-            float cy = (float) (my + radius2 * Math.sin(Math.toRadians(k * 30)));
+            float cx = (float) ((double) mx + (double) radius2 * StrictMath.cos(Math.toRadians((double) (k * 30))));
+            float cy = (float) ((double) my + (double) radius2 * StrictMath.sin(Math.toRadians((double) (k * 30))));
             hourLines[(k + 3) % 12] = new Line(mx, my, cx, cy);
         }
     }
@@ -129,10 +128,10 @@ public class AnalogClock extends GUIComponent {
         g.setColor(Color.gray);
         g.drawImage(clock, x, y);
         g.draw(smLines[getSeconds()]);
-        g.setLineWidth(3);
+        g.setLineWidth(3.0F);
         g.draw(smLines[getMinutes()]);
         int h = (getHours() > 11) ? getHours() - 12 : getHours();
-        g.setLineWidth(4);
+        g.setLineWidth(4.0F);
         g.draw(hourLines[h]);
     }
 
@@ -140,8 +139,8 @@ public class AnalogClock extends GUIComponent {
     public void update() {
         if (!gui.getSpacequest().getSimulation().isPaused()) {
             double dt = gui.getSpacequest().getSimulation().getDT();
-            time += dt;
-            duration = new Period(time * 1000);
+            time += (long) dt;
+            duration = new Period(time * 1000L);
         }
     }
 }

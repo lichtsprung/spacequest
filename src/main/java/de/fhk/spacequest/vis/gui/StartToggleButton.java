@@ -7,7 +7,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 
 /**
- *
  * @author Robert Giacinto
  */
 public class StartToggleButton extends ToggleButton {
@@ -16,7 +15,7 @@ public class StartToggleButton extends ToggleButton {
     private Image inactive;
 
     public StartToggleButton(float x, float y, GUI gui, String s_active, String s_inactive) throws SlickException {
-        super(x, y, 35, 35, gui);
+        super(x, y, 35.0F, 35.0F, gui);
 
         active = new Image(StartToggleButton.class.getResource(s_active).getFile());
         active.setAlpha(0.7f);
@@ -30,15 +29,15 @@ public class StartToggleButton extends ToggleButton {
 
         if (gui.getSpacequest().getSimulation().isPaused()) {
             g.drawImage(inactive, x, y);
-            g.fillRect(x + 15, y + 15, 4, 10);
-            g.fillRect(x + 20, y + 15, 4, 10);
+            g.fillRect(x + 15.0F, y + 15.0F, 4.0F, 10.0F);
+            g.fillRect(x + 20.0F, y + 15.0F, 4.0F, 10.0F);
 
         } else {
             g.drawImage(active, x, y);
             Polygon poly = new Polygon();
-            poly.addPoint(x + 15, y + 15);
-            poly.addPoint(x + 15, y + 25);
-            poly.addPoint(x + 25, y + 20);
+            poly.addPoint(x + 15.0F, y + 15.0F);
+            poly.addPoint(x + 15.0F, y + 25.0F);
+            poly.addPoint(x + 25.0F, y + 20.0F);
             poly.setClosed(true);
             g.fill(poly);
         }

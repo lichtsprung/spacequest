@@ -26,7 +26,8 @@ public final class AuxVars {
      * Richtungsvektor vom Mond zur Rakete.
      */
     private Vector2d rrm;
-    /**.
+    /**
+     * .
      * Einheitsvektor Erdmittelpunkt zur Rakete
      */
     private Vector2d erre;
@@ -61,9 +62,9 @@ public final class AuxVars {
 
     /**
      * Konstruktor für den Hilfsvariablenvektor.
-     * 
+     *
      * @param rocket die Rakete
-     * @param tn der aktuelle Zeitpunkt
+     * @param tn     der aktuelle Zeitpunkt
      */
     public AuxVars(Rocket rocket, double tn) {
         updateAuxVars(rocket, tn);
@@ -73,7 +74,7 @@ public final class AuxVars {
      * Aktualisiert die Hilfsvariablen.
      *
      * @param rocket die Rakete
-     * @param tn der aktuelle Zeitpunkt
+     * @param tn     der aktuelle Zeitpunkt
      */
     public void updateAuxVars(Rocket rocket, double tn) {
 
@@ -93,16 +94,15 @@ public final class AuxVars {
         errm.normalize(rrm);
 
 
-
         brre = rre.length();
         brrm = rrm.length();
 
         ve = new Vector2d(
-                Constants.LE * Constants.PHI10V * Math.sin(Constants.PHI10V * tn + Constants.PHI10),
-                -Constants.LE * Constants.PHI10V * Math.cos(Constants.PHI10V * tn + Constants.PHI10));
+                Constants.LE * Constants.PHI10V * StrictMath.sin(Constants.PHI10V * tn + Constants.PHI10),
+                -Constants.LE * Constants.PHI10V * StrictMath.cos(Constants.PHI10V * tn + Constants.PHI10));
         vm = new Vector2d(
-                -Constants.LM * Constants.PHI10V * Math.sin(Constants.PHI10V * tn + Constants.PHI10),
-                Constants.LM * Constants.PHI10V * Math.cos(Constants.PHI10V * tn + Constants.PHI10));
+                -Constants.LM * Constants.PHI10V * StrictMath.sin(Constants.PHI10V * tn + Constants.PHI10),
+                Constants.LM * Constants.PHI10V * StrictMath.cos(Constants.PHI10V * tn + Constants.PHI10));
 
 
         vve = (Vector2d) rocket.getV().clone();
@@ -293,23 +293,23 @@ public final class AuxVars {
     public String toString() {
         String output =
                 "brre " + brre + "\n"
-                + "brrm " + brrm + "\n"
-                + "erre " + erre + "\n"
-                + "errm " + errm + "\n"
-                + "evte " + evte + "\n"
-                + "evtm " + evtm + "\n"
-                + "re " + re + "\n"
-                + "rm " + rm + "\n"
-                + "rre " + rre + "\n"
-                + "rrm " + rrm + "\n"
-                + "ve " + ve + "\n"
-                + "vm " + vm + "\n"
-                + "vre " + vre + "\n"
-                + "vrm " + vrm + "\n"
-                + "vte " + vte + "\n"
-                + "vtm " + vtm + "\n"
-                + "vve " + vve + "\n"
-                + "vvm " + vvm + "\n";
+                        + "brrm " + brrm + "\n"
+                        + "erre " + erre + "\n"
+                        + "errm " + errm + "\n"
+                        + "evte " + evte + "\n"
+                        + "evtm " + evtm + "\n"
+                        + "re " + re + "\n"
+                        + "rm " + rm + "\n"
+                        + "rre " + rre + "\n"
+                        + "rrm " + rrm + "\n"
+                        + "ve " + ve + "\n"
+                        + "vm " + vm + "\n"
+                        + "vre " + vre + "\n"
+                        + "vrm " + vrm + "\n"
+                        + "vte " + vte + "\n"
+                        + "vtm " + vtm + "\n"
+                        + "vve " + vve + "\n"
+                        + "vvm " + vvm + "\n";
         return output;
     }
 }

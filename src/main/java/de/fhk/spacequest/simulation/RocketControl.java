@@ -1,9 +1,10 @@
 package de.fhk.spacequest.simulation;
 
 import de.fhk.spacequest.controlphases.ControlPhase;
+
+import javax.vecmath.Vector2d;
 import java.util.Collection;
 import java.util.HashMap;
-import javax.vecmath.Vector2d;
 
 /**
  * Die Klasse RocketControl übernimmt die automatische Steuerung der Rakete. Sie
@@ -11,13 +12,13 @@ import javax.vecmath.Vector2d;
  * zum Mond zu bringen.
  * Hierfür müssen fünf Phasen vorhanden sein:
  * <ol>
- *  <li> Senkrechte Startphase </li>
- *  <li> Orbitale Flugphase </li>
- *  <li> Start des Mondfluges </li>
- *  <li> Einschwenken in Mondorbit </li>
- *  <li> Korrektive Mondannäherung </li>
+ * <li> Senkrechte Startphase </li>
+ * <li> Orbitale Flugphase </li>
+ * <li> Start des Mondfluges </li>
+ * <li> Einschwenken in Mondorbit </li>
+ * <li> Korrektive Mondannäherung </li>
  * </ol>
- * 
+ *
  * @author Robert Giacinto
  */
 public class RocketControl {
@@ -25,7 +26,7 @@ public class RocketControl {
     /**
      * Ergebnisvektor der Simulation
      */
-    private ResultVector y, f;
+    private ResultVector y = null, f = null;
     /**
      * Die Hilfsvariablen, die von der Simulation zur Verfügung gestellt werden
      */
@@ -38,9 +39,6 @@ public class RocketControl {
      * Die aktiven Kontrollphasen der Raketensteuerung
      */
     private HashMap<Integer, ControlPhase> controlPhases;
-    private Vector2d propulsion,
-            gravitation,
-            acceleration;
 
     /**
      * Erstellt eine neue Kontrollsteuerung mit den übergebenen Phasen.
@@ -64,7 +62,7 @@ public class RocketControl {
 
     /**
      * Gibt die Instanz einer Kontrollphase zurück.
-     * 
+     *
      * @param phase die Nummer der Phase
      * @return die Kontrollphase der Rakete
      */
@@ -72,7 +70,7 @@ public class RocketControl {
         return controlPhases.get(phase);
     }
 
-    
+
     public Collection<ControlPhase> getControlPhases() {
         return controlPhases.values();
     }
@@ -81,20 +79,20 @@ public class RocketControl {
      * Wird von der Simulation verwendet, um die Raketensteuerung zu aktivieren.
      *
      * @param phase die Phase, in der sich die Simulation aktuell befindet
-     * @param yn der Ergebnisvektor der Simulation
-     * @param fn die Rechenergebnisse der Raketensteuerung werden in diesem Vektor gespeichert
+     * @param yn    der Ergebnisvektor der Simulation
+     * @param fn    die Rechenergebnisse der Raketensteuerung werden in diesem Vektor gespeichert
      */
     public void controlRocket(int phase, ResultVector yn, ResultVector fn) {
         y = yn;
         f = fn;
         auxVars.updateAuxVars(y.getRocket(), y.getT());
 
-        f.getRocket().setM(0);
+        f.getRocket().setM(0.0);
         f.getRocket().setEt((Vector2d) auxVars.getErre().clone());
-        f.getRocket().getEt().scale(-1);
+        f.getRocket().getEt().scale(-1.0);
 
         if (y.getRocket().getM() <= simulation.getMN()) {
-            f.getRocket().setM(0);
+            f.getRocket().setM(0.0);
         } else {
             controlPhases.get(phase).control();
         }
@@ -103,12 +101,12 @@ public class RocketControl {
         f.getRocket().getEt().normalize();
 
 
-        propulsion = (Vector2d) f.getRocket().getEt().clone();
+        Vector2d propulsion = (Vector2d) f.getRocket().getEt().clone();
         propulsion.scale(Constants.D_W * (f.getRocket().getM() / y.getRocket().getM()));
 
-        gravitation = simulation.calcGravitation(y, auxVars);
+        Vector2d gravitation = simulation.calcGravitation(y, auxVars);
 
-        acceleration = (Vector2d) propulsion.clone();
+        Vector2d acceleration = (Vector2d) propulsion.clone();
         acceleration.add(gravitation);
 
 

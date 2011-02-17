@@ -1,24 +1,24 @@
 package de.fhk.spacequest.vis.gui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- *
  * @author Robert Giacinto
  */
 public class PhaseButton extends ToggleButton {
 
-    private Image active;
-    private Image inactive;
+    private Image active = null;
+    private Image inactive = null;
     private int n;
 
     public PhaseButton(int n, float x, float y, GUI gui, String s_active, String s_inactive) {
-        super(x, y, 35, 35, gui);
+        super(x, y, 35.0F, 35.0F, gui);
         this.n = n;
         try {
             active = new Image(PhaseButton.class.getResource(s_active).getFile());
@@ -42,6 +42,6 @@ public class PhaseButton extends ToggleButton {
             g.drawImage(inactive, x, y);
         }
         g.setColor(Color.white);
-        g.drawString(Integer.toString(n), x + 14, y + 10);
+        g.drawString(Integer.toString(n), x + 14.0F, y + 10.0F);
     }
 }

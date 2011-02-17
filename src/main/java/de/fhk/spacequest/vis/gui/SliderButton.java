@@ -5,7 +5,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- *
  * @author Adrian Wagner
  */
 public class SliderButton extends Button {
@@ -15,10 +14,10 @@ public class SliderButton extends Button {
     public float value;
 
     public SliderButton(float x, float y, Slider slider, GUI gui, String s_slider) throws SlickException {
-        super(x, y, 35, 35, false, gui);
+        super(x, y, 35.0F, 35.0F, false, gui);
 
         this.slider = slider;
-        value = slider.width / 2;
+        value = slider.width / 2.0F;
 
         texture = new Image(SliderButton.class.getResource(s_slider).getFile());
         texture.setAlpha(0.7f);
@@ -26,20 +25,20 @@ public class SliderButton extends Button {
 
     @Override
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
-        float disX = oldx - x;
-        float disY = oldy - y;
+        float disX = (float) oldx - x;
+        float disY = (float) oldy - y;
 
-        if (disX > 0 && disX < width) {
-            if (disY > 0 && disY < height) {
+        if (disX > 0.0F && disX < width) {
+            if (disY > 0.0F && disY < height) {
                 gui.setFocus(true);
-                value = value + (newx - oldx);
+                value += (float) (newx - oldx);
 
                 if (value > slider.width) {
                     value = slider.width;
                 }
 
-                if (value <= 0) {
-                    value = 1;
+                if (value <= 0.0F) {
+                    value = 1.0F;
                 }
             }
         }
@@ -47,7 +46,7 @@ public class SliderButton extends Button {
 
     @Override
     public void update() {
-        x = slider.x + value - 35 / 2;
+        x = slider.x + value - (float) (35 / 2);
         y = slider.y;
     }
 

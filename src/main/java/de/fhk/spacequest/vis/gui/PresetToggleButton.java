@@ -1,8 +1,5 @@
 package de.fhk.spacequest.vis.gui;
 
-import de.fhk.spacequest.vis.Spacequest;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,6 +7,7 @@ import org.newdawn.slick.SlickException;
 
 /**
  * ToggleButton, der die Kameravoreinstellungen während der Visualisierung (de)aktiviert.
+ *
  * @author Robert Giacinto
  */
 public class PresetToggleButton extends ToggleButton {
@@ -18,7 +16,7 @@ public class PresetToggleButton extends ToggleButton {
     private Image inactive;
 
     public PresetToggleButton(float x, float y, GUI gui, String s_active, String s_inactive) throws SlickException {
-        super(x, y, 35, 35, gui);
+        super(x, y, 35.0F, 35.0F, gui);
 
         active = new Image(PresetToggleButton.class.getResource(s_active).getFile());
         active.setAlpha(0.7f);
@@ -40,6 +38,6 @@ public class PresetToggleButton extends ToggleButton {
         }
 
         g.setColor(Color.white);
-        g.drawString("CP", x + 10, y + 10);
+        g.drawString("CP", x + 10.0F, y + 10.0F);
     }
 }

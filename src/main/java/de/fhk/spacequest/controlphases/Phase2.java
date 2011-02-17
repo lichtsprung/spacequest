@@ -4,10 +4,10 @@ import de.fhk.spacequest.simulation.AuxVars;
 import de.fhk.spacequest.simulation.Constants;
 import de.fhk.spacequest.simulation.Earth;
 import de.fhk.spacequest.simulation.ResultVector;
+
 import javax.vecmath.Vector2d;
 
 /**
- *
  * @author Robert Giacinto
  */
 public class Phase2 extends ControlPhase {
@@ -38,7 +38,7 @@ public class Phase2 extends ControlPhase {
     @Override
     public int checkConditions() {
         ResultVector y = getRocketControl().getY();
-        if (y.getT() > 2500) {
+        if (y.getT() > 2500.0) {
             return 3;
         }
         return 2;

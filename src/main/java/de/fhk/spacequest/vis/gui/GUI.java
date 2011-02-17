@@ -1,24 +1,26 @@
 package de.fhk.spacequest.vis.gui;
- 
+
 import de.fhk.spacequest.vis.Spacequest;
-import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * GUI der Visualisierung.
  * Dies ist die Klasse, die alles verwaltet, was mit der grafischen Oberfläche zu tun hat.
- * 
+ *
  * @author Robert Giacinto
  */
 public final class GUI {
 
-    private ArrayList<GUIComponent> guiComponents;
+    private Collection<GUIComponent> guiComponents;
     private Input input;
     private Spacequest spacequest;
-    private boolean focus;
-    private boolean paused;
+    private boolean focus = false;
+    private boolean paused = false;
     IniFile iniFile;
 
     public GUI(Spacequest spacequest, Input input, IniFile iniFile) throws SlickException {
@@ -43,7 +45,6 @@ public final class GUI {
     }
 
     /**
-     * 
      * @param focus
      */
     public void setFocus(boolean focus) {
@@ -100,25 +101,25 @@ public final class GUI {
     }
 
     /**
-     * Initialisiert die Standardkomponenten der GUI. 
+     * Initialisiert die Standardkomponenten der GUI.
+     *
      * @throws SlickException
      */
     private void initGUI() throws SlickException {
 
         // addCompoment(new AnalogClock(spacequest.getScreenWidth() - (spacequest.getScreenWidth() / 5), spacequest.getScreenHeight() / 80, spacequest.getScreenWidth() / 16, this, IniFile.get(2)));
-         
+
         /*
         for (PhaseButton pb : PhaseButtonFactory.createPhaseButtons(950, 10, true, this, IniFile.get(3), IniFile.get(4))) {
             addCompoment(pb);
         }
         */
 
-        try{
+        try {
             for (GUIComponent gc : PropertyFile.createGUIElements("default.xml", this)) {
                 addCompoment(gc);
             }
-        }
-        catch(Exception error) {
+        } catch (Exception error) {
 
         }
 

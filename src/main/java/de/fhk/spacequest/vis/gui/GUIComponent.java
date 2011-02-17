@@ -1,5 +1,5 @@
 package de.fhk.spacequest.vis.gui;
- 
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
@@ -7,6 +7,7 @@ import org.newdawn.slick.MouseListener;
 /**
  * Grundklasse aller Komponenten, die innerhalb der GUI gezeichnet werden können.
  * TODO Die Hintergrundbilder-URIs sollten nicht fix im Code stehen. -> Property-File?
+ *
  * @author Robert Giacinto
  */
 public abstract class GUIComponent implements MouseListener {
@@ -17,7 +18,7 @@ public abstract class GUIComponent implements MouseListener {
     protected float y;
     protected GUI gui;
 
-    public GUIComponent(float x, float y, float width, float height, GUI gui){
+    protected GUIComponent(float x, float y, float width, float height, GUI gui) {
         this.width = width;
         this.height = height;
         this.x = x;
@@ -26,14 +27,14 @@ public abstract class GUIComponent implements MouseListener {
     }
 
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
-        float disX = oldx - x;
-        float disY = oldy - y;
+        float disX = (float) oldx - x;
+        float disY = (float) oldy - y;
 
-        if (disX > 0 && disX < width) {
-            if (disY > 0 && disY < height) {
+        if (disX > 0.0F && disX < width) {
+            if (disY > 0.0F && disY < height) {
                 gui.setFocus(true);
-                x = x + (newx - oldx);
-                y = y + (newy - oldy);
+                x += (float) (newx - oldx);
+                y += (float) (newy - oldy);
             }
         }
     }

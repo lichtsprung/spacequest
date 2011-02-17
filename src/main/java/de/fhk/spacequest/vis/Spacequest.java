@@ -28,45 +28,45 @@ public class Spacequest extends BasicGame {
     /**
      * Das Input-Objekt, das die Maus- und Keyboardeingaben verarbeitet.
      */
-    private Input input;
+    private Input input = null;
     /**
      * Die Instanz der laufenden Simulation.
      */
-    private Simulation simulation;
+    private Simulation simulation = null;
     /**
      * Die View der Erde.
      */
-    private EarthView earth;
+    private EarthView earth = null;
     /**
      * Die View der Rakete.
      */
-    private RocketView rocket;
+    private RocketView rocket = null;
     /**
      * Die View des Monds.
      */
-    private MoonView moon;
+    private MoonView moon = null;
     /**
      * Das Kameraobjekt der Visualisierung.
      */
-    private Camera cam;
+    private Camera cam = null;
     /**
      * Der aktuelle Zustand der Simulation.
      */
-    private ResultVector currentState;
+    private ResultVector currentState = null;
     /**
      * Der Hintergrund der Simulation.
      */
-    private Image starfield;
+    private Image starfield = null;
     /**
      * Die Bahnspuren von Erde, Mond und Rakete.
      */
-    private Polygon earthTrail, moonTrail, rocketTrail;
+    private Polygon earthTrail = null, moonTrail = null, rocketTrail = null;
     /**
      * <code>true</code>, wenn Rakete in der Nähe vom Mond.
      */
-    private boolean moonPhase;
-    private boolean useCamPresets;
-    private GUI gui;
+    private boolean moonPhase = false;
+    private boolean useCamPresets = false;
+    private GUI gui = null;
     IniFile iniFile;
     private int screenWidth, screenHeight;
 
@@ -98,11 +98,11 @@ public class Spacequest extends BasicGame {
     public void init(GameContainer container) throws SlickException {
         input = container.getInput();
 
-        simulation = new Simulation(10 * 1000, 300 * 1000, false, false);
+        simulation = new Simulation((double) (10 * 1000), (double) (300 * 1000), false, false);
         simulation.updateSimulationState();
         gui = new GUI(this, input, iniFile);
 
-        cam = new Camera((float) (-Constants.LE), 0, screenWidth, screenHeight, 2.6053895E-5f, container.getGraphics());
+        cam = new Camera((float) (-Constants.LE), 0.0F, screenWidth, screenHeight, 2.6053895E-5f, container.getGraphics());
         cam.loadPreset(Camera.presetEarth);
 
         currentState = simulation.getCurrentSimulationState();
@@ -156,17 +156,17 @@ public class Spacequest extends BasicGame {
             }
         } else {
             if (input.isKeyDown(Input.KEY_DOWN)) {
-                cam.y += 10f / cam.zoom;
+                cam.y += 10.0f / cam.zoom;
             }
             if (input.isKeyDown(Input.KEY_UP)) {
-                cam.y -= 10f / cam.zoom;
+                cam.y -= 10.0f / cam.zoom;
             }
 
             if (input.isKeyDown(Input.KEY_RIGHT)) {
-                cam.x += 10f / cam.zoom;
+                cam.x += 10.0f / cam.zoom;
             }
             if (input.isKeyDown(Input.KEY_LEFT)) {
-                cam.x -= 10f / cam.zoom;
+                cam.x -= 10.0f / cam.zoom;
             }
 
             if (input.isKeyDown(Input.KEY_1)) {
@@ -205,8 +205,8 @@ public class Spacequest extends BasicGame {
     @Override
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
         if (!gui.hasFocus()) {
-            cam.x = cam.x + ((newx - oldx) / cam.zoom) * -1;
-            cam.y = cam.y + ((newy - oldy) / cam.zoom) * -1;
+            cam.x += ((float) (newx - oldx) / cam.zoom) * -1.0F;
+            cam.y += ((float) (newy - oldy) / cam.zoom) * -1.0F;
         }
     }
 
@@ -222,9 +222,9 @@ public class Spacequest extends BasicGame {
      * @throws SlickException wirft Exception, wenn etwas nicht funktionieren sollte
      */
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.setLineWidth(2);
+        g.setLineWidth(2.0F);
         g.setAntiAlias(true);
-        g.drawImage(starfield, 0, 0);
+        g.drawImage(starfield, 0.0F, 0.0F);
 
         g.setColor(Color.blue);
         g.draw(cam.getScreenPolygon(earthTrail));

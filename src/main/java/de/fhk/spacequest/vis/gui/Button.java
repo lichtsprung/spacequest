@@ -1,19 +1,17 @@
 package de.fhk.spacequest.vis.gui;
- 
-import de.fhk.spacequest.vis.Spacequest;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 /**
- *
  * @author Robert Giacinto
  */
 public abstract class Button extends GUIComponent {
 
-    private boolean pressed;
+    private boolean pressed = false;
     private boolean toggleButton;
 
-    public Button(float x, float y, float width, float height, boolean toggleButton, GUI gui) {
+    protected Button(float x, float y, float width, float height, boolean toggleButton, GUI gui) {
         super(x, y, width, height, gui);
         this.toggleButton = toggleButton;
     }
@@ -21,11 +19,11 @@ public abstract class Button extends GUIComponent {
     @Override
     public void mousePressed(int i, int i1, int i2) {
         if (!toggleButton) {
-            float disX = i1 - x;
-            float disY = i2 - y;
+            float disX = (float) i1 - x;
+            float disY = (float) i2 - y;
 
-            if (disX > 0 && disX < width) {
-                if (disY > 0 && disY < height) {
+            if (disX > 0.0F && disX < width) {
+                if (disY > 0.0F && disY < height) {
                     pressed = true;
                 }
             }
@@ -35,11 +33,11 @@ public abstract class Button extends GUIComponent {
     @Override
     public void mouseReleased(int i, int i1, int i2) {
         if (!toggleButton) {
-            float disX = i1 - x;
-            float disY = i2 - y;
+            float disX = (float) i1 - x;
+            float disY = (float) i2 - y;
 
-            if (disX > 0 && disX < width) {
-                if (disY > 0 && disY < height) {
+            if (disX > 0.0F && disX < width) {
+                if (disY > 0.0F && disY < height) {
                     pressed = false;
                 }
             }
@@ -49,11 +47,11 @@ public abstract class Button extends GUIComponent {
     @Override
     public void mouseClicked(int i, int i1, int i2, int i3) {
         if (toggleButton) {
-            float disX = i1 - x;
-            float disY = i2 - y;
+            float disX = (float) i1 - x;
+            float disY = (float) i2 - y;
 
-            if (disX > 0 && disX < width) {
-                if (disY > 0 && disY < height) {
+            if (disX > 0.0F && disX < width) {
+                if (disY > 0.0F && disY < height) {
                     executeAction();
                 }
             }
@@ -70,7 +68,7 @@ public abstract class Button extends GUIComponent {
 
     @Override
     public void update() {
-        if (isPressed()) {
+        if (pressed) {
             executeAction();
         }
     }
@@ -81,8 +79,7 @@ public abstract class Button extends GUIComponent {
         g.fillRect(x, y, width, height);
         g.setColor(Color.black);
     }
-    
-    
+
 
     protected abstract void executeAction();
 }

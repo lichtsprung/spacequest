@@ -1,10 +1,14 @@
 package de.fhk.spacequest.vis.gui;
 
-import java.io.InputStream;
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -86,10 +90,10 @@ public abstract class PropertyFile {
         try {
             switch (subtypeNumber) {
                 case (0):
-                    component = new StartToggleButton(Integer.parseInt(node.getAttribute("x")), Integer.parseInt(node.getAttribute("y")), gui, gui.iniFile.get(3), gui.iniFile.get(4));
+                    component = new StartToggleButton((float) Integer.parseInt(node.getAttribute("x")), (float) Integer.parseInt(node.getAttribute("y")), gui, gui.iniFile.get(3), gui.iniFile.get(4));
                     break;
                 case (1):
-                    component = new PresetToggleButton(Integer.parseInt(node.getAttribute("x")), Integer.parseInt(node.getAttribute("y")), gui, gui.iniFile.get(3), gui.iniFile.get(4));
+                    component = new PresetToggleButton((float) Integer.parseInt(node.getAttribute("x")), (float) Integer.parseInt(node.getAttribute("y")), gui, gui.iniFile.get(3), gui.iniFile.get(4));
                     break;
                 default:
                     break;
@@ -118,10 +122,10 @@ public abstract class PropertyFile {
         try {
             switch (subtypeNumber) {
                 case (0):
-                    component = new AnalogClock(Integer.parseInt(node.getAttribute("x")), Integer.parseInt(node.getAttribute("y")), Integer.parseInt(node.getAttribute("size")), gui, gui.iniFile.get(2));
+                    component = new AnalogClock((float) Integer.parseInt(node.getAttribute("x")), (float) Integer.parseInt(node.getAttribute("y")), (float) Integer.parseInt(node.getAttribute("size")), gui, gui.iniFile.get(2));
                     break;
                 case (1):
-                    component = new DigitalClock(Integer.parseInt(node.getAttribute("x")), Integer.parseInt(node.getAttribute("y")), gui, gui.iniFile.get(2));
+                    component = new DigitalClock((float) Integer.parseInt(node.getAttribute("x")), (float) Integer.parseInt(node.getAttribute("y")), gui, gui.iniFile.get(2));
                     break;
                 default:
                     break;
@@ -150,7 +154,7 @@ public abstract class PropertyFile {
         try {
             switch (subtypeNumber) {
                 case (0):
-                    component = new ZoomSlider(Integer.parseInt(node.getAttribute("x")), Integer.parseInt(node.getAttribute("y")), Float.parseFloat(node.getAttribute("min")), Float.parseFloat(node.getAttribute("max")), Integer.parseInt(node.getAttribute("size")), gui, gui.iniFile.get(7));
+                    component = new ZoomSlider((float) Integer.parseInt(node.getAttribute("x")), (float) Integer.parseInt(node.getAttribute("y")), Float.parseFloat(node.getAttribute("min")), Float.parseFloat(node.getAttribute("max")), (float) Integer.parseInt(node.getAttribute("size")), gui, gui.iniFile.get(7));
                     break;
                 default:
                     break;
@@ -163,13 +167,13 @@ public abstract class PropertyFile {
         return component;
     }
 
-    private static void createFactoryFromNode(Element node, ArrayList components, GUI gui) {
+    private static void createFactoryFromNode(Element node, Collection components, GUI gui) {
 
         String subtype = node.getAttribute("subtype");
 
         try {
             if (subtype.equals("phase_button")) {
-                for (PhaseButton pb : PhaseButtonFactory.createPhaseButtons(Integer.parseInt(node.getAttribute("x")), Integer.parseInt(node.getAttribute("y")), node.getAttribute("alignment").equals("vertical") ? true : false, gui, gui.iniFile.get(3), gui.iniFile.get(4))) {
+                for (PhaseButton pb : PhaseButtonFactory.createPhaseButtons((float) Integer.parseInt(node.getAttribute("x")), (float) Integer.parseInt(node.getAttribute("y")), node.getAttribute("alignment").equals("vertical"), gui, gui.iniFile.get(3), gui.iniFile.get(4))) {
                     components.add(pb);
                 }
             }

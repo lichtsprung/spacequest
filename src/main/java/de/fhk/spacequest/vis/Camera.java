@@ -5,19 +5,18 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
 
 /**
- *
  * @author Robert Giacinto
  */
 public class Camera {
 
-    public static final Camera presetEarth = new Camera(-4631092.0f, 0f, Spacequest.PWIDTH, Spacequest.PHEIGHT, 2.6053895E-5f, null),
+    public static final Camera presetEarth = new Camera(-4631092.0f, 0.0f, Spacequest.PWIDTH, Spacequest.PHEIGHT, 2.6053895E-5f, null),
             presetEarthMoon = new Camera(1.88085408E8f, 1.19217056E8f, Spacequest.PWIDTH, Spacequest.PHEIGHT, 1.9292545E-6f, null),
             presetMoon = new Camera(2.66339712E8f, 2.71510944E8f, Spacequest.PWIDTH, Spacequest.PHEIGHT, 3.2829426E-5f, null);
-    protected float x, y;
-    protected int width, height;
-    protected float zoom;
-    protected Graphics g;
-    private Camera currentPreset;
+    protected float x = 0.0F, y = 0.0F;
+    protected int width = 0, height = 0;
+    protected float zoom = 0.0F;
+    protected Graphics g = null;
+    private Camera currentPreset = null;
 
     private Camera() {
     }
@@ -43,7 +42,7 @@ public class Camera {
     }
 
     public Polygon getScreenPolygon(Polygon poly) {
-        return (Polygon) poly.transform(Transform.createTranslateTransform(-x, -y)).transform(Transform.createScaleTransform(zoom, zoom)).transform(Transform.createTranslateTransform(width / 2, height / 2));
+        return (Polygon) poly.transform(Transform.createTranslateTransform(-x, -y)).transform(Transform.createScaleTransform(zoom, zoom)).transform(Transform.createTranslateTransform((float) (width / 2), (float) (height / 2)));
     }
 
     public void draw(VisObject visobject) {
@@ -97,7 +96,7 @@ public class Camera {
 
     public void setZoom(float zoom) {
         this.zoom = zoom;
-    }    
+    }
 
     @Override
     public String toString() {

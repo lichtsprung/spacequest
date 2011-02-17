@@ -11,10 +11,10 @@ import de.fhk.spacequest.simulation.RocketControl;
 public abstract class ControlPhase {
 
     private int phase;
-    private RocketControl rocketControl;
+    private RocketControl rocketControl = null;
     private PhaseInfo phaseInfo;
 
-    public ControlPhase(int phase, PhaseInfo phaseInfo) {
+    protected ControlPhase(int phase, PhaseInfo phaseInfo) {
         this.phaseInfo = phaseInfo;
         this.phase = phase;
     }
@@ -42,8 +42,8 @@ public abstract class ControlPhase {
      * @param val zu evaluierender Wert
      * @return 1, wenn val > 0, sonst 0
      */
-    protected double heavy(double val) {
-        return (val <= 0) ? 0 : 1;
+    protected static double heavy(double val) {
+        return (double) ((val <= 0) ? 0 : 1);
     }
 
     /**
@@ -73,10 +73,7 @@ public abstract class ControlPhase {
             return false;
         }
         final ControlPhase other = (ControlPhase) obj;
-        if (this.phase != other.phase) {
-            return false;
-        }
-        return true;
+        return this.phase == other.phase;
     }
 
     @Override

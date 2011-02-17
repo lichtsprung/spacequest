@@ -5,7 +5,6 @@ import de.fhk.spacequest.simulation.Constants;
 import de.fhk.spacequest.simulation.Moon;
 
 /**
- *
  * @author Robert Giacinto
  */
 public class Phase4 extends ControlPhase {
@@ -31,8 +30,8 @@ public class Phase4 extends ControlPhase {
     public int checkConditions() {
         AuxVars auxVars = getRocketControl().getAuxVars();
 
-        if (((auxVars.getErrm().dot(auxVars.getVrm()) > 0
-                && auxVars.getBrrm() - Moon.R < 50 * Moon.R)
+        if (((auxVars.getErrm().dot(auxVars.getVrm()) > 0.0
+                && auxVars.getBrrm() - Moon.R < 50.0 * Moon.R)
                 || (auxVars.getBrrm() - Moon.R < 0.5 * Moon.R))) {
             return 5;
         } else if ((auxVars.getBrre() > Constants.EARTH_ORBIT * Constants.D)) {

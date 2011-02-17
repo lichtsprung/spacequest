@@ -1,17 +1,18 @@
 package de.fhk.spacequest.vis;
 
-import java.util.ArrayList;
-import java.util.Random;
 import org.newdawn.slick.Color;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
 /**
  * Prozedural erzeugter Sternenhintergrund.
- * 
+ *
  * @author Robert Giacinto
  */
 public class Starfield {
 
-    private ArrayList<Star> stars;
     private int starCount;
     private float width;
     private float height;
@@ -19,8 +20,8 @@ public class Starfield {
     /**
      * Erzeugt einen neuen Sternenhintergrund.
      *
-     * @param width die Startbreite des Sternenhimmels
-     * @param height die Starthöhe des Sternenhimmels
+     * @param width     die Startbreite des Sternenhimmels
+     * @param height    die Starthöhe des Sternenhimmels
      * @param starCount die Anzahl der Sterne
      */
     public Starfield(float width, float height, int starCount) {
@@ -31,7 +32,7 @@ public class Starfield {
     }
 
     private void initStarfield() {
-        stars = new ArrayList<Star>(starCount);
+        Collection<Star> stars = new ArrayList<Star>(starCount);
         for (int i = 0; i < starCount; i++) {
             stars.add(new Star());
         }
@@ -44,15 +45,15 @@ public class Starfield {
         private float baseLight;
         private float frequency;
         private float amplitude;
-        private Color color;
+        private Color color = null;
 
         public Star() {
             Random rand = new Random(System.nanoTime());
-            x = (float) (rand.nextGaussian() * width);
-            y = (float) (rand.nextGaussian() * height);
+            x = (float) (rand.nextGaussian() * (double) width);
+            y = (float) (rand.nextGaussian() * (double) height);
             baseLight = (float) rand.nextGaussian();
-            frequency = (float) (rand.nextGaussian() * 5);
-            amplitude = (float) (baseLight - rand.nextGaussian());
+            frequency = (float) (rand.nextGaussian() * 5.0);
+            amplitude = (float) ((double) baseLight - rand.nextGaussian());
 
         }
 

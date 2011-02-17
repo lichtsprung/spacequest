@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 
 /**
- *
  * @author Robert Giacinto
  */
 public final class EarthView extends VisObject {
@@ -31,10 +30,10 @@ public final class EarthView extends VisObject {
         y = (float) earthModel.getR().y;
 
         poly = new Polygon();
-        poly.addPoint((float) (x - Earth.R), (float) (y - Earth.R));
-        poly.addPoint((float) (x + Earth.R), (float) (y - Earth.R));
-        poly.addPoint((float) (x + Earth.R), (float) (y + Earth.R));
-        poly.addPoint((float) (x - Earth.R), (float) (y + Earth.R));
+        poly.addPoint((float) ((double) x - Earth.R), (float) ((double) y - Earth.R));
+        poly.addPoint((float) ((double) x + Earth.R), (float) ((double) y - Earth.R));
+        poly.addPoint((float) ((double) x + Earth.R), (float) ((double) y + Earth.R));
+        poly.addPoint((float) ((double) x - Earth.R), (float) ((double) y + Earth.R));
     }
 
     @Override

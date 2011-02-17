@@ -24,19 +24,19 @@ public class Rocket extends CBody {
     /**
      * Die Masse der Rakete.
      */
-    private double m;
+    private double m = 0.0;
     /**
      * Die Abbrandrate des Triebwerks.
      */
-    private double mp;
+    private double mp = 0.0;
     /**
      * Die Nutzlast der Rakete.
      */
-    private double mn;
+    private double mn = 0.0;
     /**
      * Die Masse des Treibstoffs der Rakete.
      */
-    private double mt;
+    private double mt = 0.0;
 
     /**
      * Erstellt eine neue Rakete.
@@ -50,12 +50,12 @@ public class Rocket extends CBody {
     @Override
     protected Object clone() {
         Rocket ro = new Rocket();
-        ro.setEt((Vector2d) getEt().clone());
-        ro.setEtv((Vector2d) getEtv().clone());
-        ro.setV((Vector2d) getV().clone());
+        ro.setEt((Vector2d) et.clone());
+        ro.setEtv((Vector2d) etv.clone());
+        ro.setV((Vector2d) v.clone());
         ro.setR((Vector2d) getR().clone());
-        ro.setM(getM());
-        ro.setMp(getMp());
+        ro.setM(m);
+        ro.setMp(mp);
         return ro;
     }
 
@@ -116,12 +116,12 @@ public class Rocket extends CBody {
     @Override
     public String toString() {
         String output = "\t\tOrtsvektor: " + getR() + "\n"
-                + "\t\tGeschwindigkeit: " + getV() + "\n"
-                + "\t\tRaketenstrahl: " + getEt() + "\n"
-                + "\t\tMasse: " + getM() + "\n"
-                + "\t\tNutzlast: " + getMn() + "\n"
-                + "\t\tTreibstofmenge: " + getMt() + "\n"
-                + "\t\tAbbrandrate: " + getMp();
+                + "\t\tGeschwindigkeit: " + v + "\n"
+                + "\t\tRaketenstrahl: " + et + "\n"
+                + "\t\tMasse: " + m + "\n"
+                + "\t\tNutzlast: " + mn + "\n"
+                + "\t\tTreibstofmenge: " + mt + "\n"
+                + "\t\tAbbrandrate: " + mp;
         return output;
     }
 

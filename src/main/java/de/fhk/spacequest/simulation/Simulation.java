@@ -1,15 +1,9 @@
 package de.fhk.spacequest.simulation;
 
-import de.fhk.spacequest.controlphases.ControlPhase;
-import de.fhk.spacequest.controlphases.Phase0;
-import de.fhk.spacequest.controlphases.Phase1;
-import de.fhk.spacequest.controlphases.Phase2;
-import de.fhk.spacequest.controlphases.Phase3;
-import de.fhk.spacequest.controlphases.Phase4;
-import de.fhk.spacequest.controlphases.Phase5;
-import de.fhk.spacequest.controlphases.Phase6;
-import java.util.Collection;
+import de.fhk.spacequest.controlphases.*;
+
 import javax.vecmath.Vector2d;
+import java.util.Collection;
 
 /**
  * Diese Klasse übernimmt die Berechnungen der Mondlandesimulation.
@@ -27,7 +21,7 @@ public class Simulation {
     /**
      * Die Ergebnisvektoren, die während der Berechnungen verwendet werden.
      */
-    private ResultVector yn, fn, currentState;
+    private ResultVector yn, fn, currentState = null;
     /**
      * Das aktuelle Delta t
      */
@@ -37,21 +31,17 @@ public class Simulation {
      */
     private double dtmax;
     /**
-     * <code>true</code> wenn die Rakete manuell gesteuert werden soll.
-     */
-    private boolean manualControl;
-    /**
      * <code>true</code> wenn Simulation in eine neue Phase gewechselt ist.
      */
-    private boolean phaseChanged;
+    private boolean phaseChanged = false;
     /**
      * <code>true</code> wenn Simulation pausiert.
      */
-    private boolean paused;
+    private boolean paused = false;
     /**
      * Die aktuelle Phase des Mondflugs.
      */
-    private int phase;
+    private int phase = 0;
     /**
      * Die Nutzlast der Rakete.
      */
@@ -72,15 +62,15 @@ public class Simulation {
     /**
      * Erstellt eine neue Simulation.
      *
-     * @param mn die Nutzlast der Rakete
-     * @param mt die Treibstoffmenge der Rakete
-     * @param manualControl <code>true</code> wenn man Rakete manuell steuern möchte
+     * @param mn                die Nutzlast der Rakete
+     * @param mt                die Treibstoffmenge der Rakete
+     * @param manualControl     <code>true</code> wenn man Rakete manuell steuern möchte
      * @param manualStepControl <code>true</code> wenn man die Steuerphasen manuell wechseln möchte
      */
     public Simulation(double mn, double mt, boolean manualControl, boolean manualStepControl) {
         this.mt = mt;
         this.mn = mn;
-        this.manualControl = manualControl;
+        boolean manualControl1 = manualControl;
         this.manualStepControl = manualStepControl;
 
         initSimulation();
@@ -95,24 +85,24 @@ public class Simulation {
         dtmax = Constants.DT_MAX;
 
         Earth earth = new Earth();
-        earth.setR(calcOrbitPosition(-Constants.LE, Constants.PHI10V, 0, Constants.PHI10));
+        earth.setR(calcOrbitPosition(-Constants.LE, Constants.PHI10V, 0.0, Constants.PHI10));
 
         Moon moon = new Moon();
-        moon.setR(calcOrbitPosition(Constants.LM, Constants.PHI10V, 0, Constants.PHI10));
+        moon.setR(calcOrbitPosition(Constants.LM, Constants.PHI10V, 0.0, Constants.PHI10));
 
         Rocket rocket = new Rocket();
-        Vector2d rs = calcOrbitPosition(Earth.R, Constants.PHI20V, 0, Constants.PHI20);
+        Vector2d rs = calcOrbitPosition(Earth.R, Constants.PHI20V, 0.0, Constants.PHI20);
         rocket.setR((Vector2d) earth.getR().clone());
         rocket.getR().add(rs);
-        rocket.setV(new Vector2d(Constants.LE * Constants.PHI10V * Math.sin(Constants.PHI10) - Earth.R * Constants.PHI20V * Math.sin(Constants.PHI20), -Constants.LE * Constants.PHI10V * Math.cos(Constants.PHI10) + Earth.R * Constants.PHI20V * Math.cos(Constants.PHI20)));
+        rocket.setV(new Vector2d(Constants.LE * Constants.PHI10V * 0.0 - Earth.R * Constants.PHI20V * StrictMath.sin(Constants.PHI20), -Constants.LE * Constants.PHI10V * 1.0 + Earth.R * Constants.PHI20V * StrictMath.cos(Constants.PHI20)));
         rocket.setEt(new Vector2d());
-        rocket.setMp(0);
+        rocket.setMp(0.0);
         rocket.setM(mn + mt);
         rocket.setMt(mt);
         rocket.setMn(mn);
 
-        auxVars = new AuxVars(rocket, 0);
-        yn = new ResultVector(rocket, earth, moon, 0);
+        auxVars = new AuxVars(rocket, 0.0);
+        yn = new ResultVector(rocket, earth, moon, 0.0);
 
         rocketControl = new RocketControl(this);
         this.addControlPhase(new Phase0());
@@ -124,18 +114,17 @@ public class Simulation {
         this.addControlPhase(new Phase6());
 
 
-
-        fn = new ResultVector(new Rocket(), new Earth(), new Moon(), 0);
+        fn = new ResultVector(new Rocket(), new Earth(), new Moon(), 0.0);
     }
 
     /**
      * Berechhnet die Gravitation, die auf die Rakete wirkt.
      *
-     * @param yn der aktuelle Zustand der Simulation
+     * @param yn      der aktuelle Zustand der Simulation
      * @param auxVars die Hilfsvariablen, die für die Rechnung benutzt werden sollen
      * @return die Wirkung der Gravitation auf die Rakete
      */
-    protected Vector2d calcGravitation(ResultVector yn, AuxVars auxVars) {
+    protected static Vector2d calcGravitation(ResultVector yn, AuxVars auxVars) {
         Vector2d rn_re = (Vector2d) yn.getRocket().getR().clone();
         rn_re.sub(auxVars.getRe());
 
@@ -151,13 +140,14 @@ public class Simulation {
         rn_re.scale(gFactor_e);
         rn_rm.scale(gFactor_m);
         rn_re.add(rn_rm);
-        rn_re.scale(1 / yn.getRocket().getM());
+        rn_re.scale(1.0 / yn.getRocket().getM());
 
         return rn_re;
     }
 
     /**
      * Gibt die Nutzlast der Rakete zurück.
+     *
      * @return die Nutzlast der Rakete
      * @deprecated Ist ein Wert der Rakete. Sollte von dort auch geholt werden.
      */
@@ -168,9 +158,9 @@ public class Simulation {
     /**
      * Implementierung der Runge-Kutta-Integration zweiter und dritter Ordnung.
      *
-     * @param y0 Ergebnisvektor zum Zeitpunkt n
+     * @param y0  Ergebnisvektor zum Zeitpunkt n
      * @param st0
-     * @param dt die aktuelle Zeitschrittgröße
+     * @param dt  die aktuelle Zeitschrittgröße
      * @return das Ergebnis der Integration zweiter und dritter Ordnung
      */
     private RKFResult rkf23(ResultVector y0, ResultVector st0, DT dt) {
@@ -263,8 +253,6 @@ public class Simulation {
         phi3_m = Constants.D0 * st0.getRocket().getM() + Constants.D2 * st2.getRocket().getM() + Constants.D3 * st3.getRocket().getM();
 
 
-
-
         ResultVector yneu2 = new ResultVector(new Rocket(), new Earth(), new Moon(), y0.getT() + dt.getDtn());
         yneu2.getRocket().getR().x = y0.getRocket().getR().x + dt.getDtn() * phi2_r.x;
         yneu2.getRocket().getR().y = y0.getRocket().getR().y + dt.getDtn() * phi2_r.y;
@@ -297,14 +285,13 @@ public class Simulation {
         yneu3.getMoon().setR(calcOrbitPosition(Constants.LM, Constants.PHI10V, yneu3.getT(), Constants.PHI10));
 
 
-
         return new RKFResult(yneu2, yneu3);
     }
 
     /**
      * Anpassung des Zeitschritts.
      *
-     * @param y aktueller Zustand der Simulation
+     * @param y  aktueller Zustand der Simulation
      * @param dt aktuelle Zeitschrittgröße
      * @param f
      * @return <code>true</code> wenn Iteration zu neuem Ergebnis geführt hat
@@ -316,7 +303,6 @@ public class Simulation {
         double min_weite;
 
         RKFResult rkfResult = rkf23(y, f, dt);
-
 
 
         if (rkfResult.getY2().getRocket().getR().length() == rkfResult.getY3().getRocket().getR().length()) {
@@ -466,12 +452,12 @@ public class Simulation {
             /*
              * Kollisionserkennung
              */
-            if (yn.getT() > 10 && (auxVars.getBrre() < Earth.R)) {
+            if (yn.getT() > 10.0 && (auxVars.getBrre() < Earth.R)) {
                 System.out.println("Kollision mit Erde bei t = " + yn.getT());
                 System.exit(0);
             }
 
-            if (yn.getT() > 10 && (auxVars.getBrrm() < Moon.R)) {
+            if (yn.getT() > 10.0 && (auxVars.getBrrm() < Moon.R)) {
                 System.out.println("Kollision mit Mond bei t = " + yn.getT());
                 System.exit(0);
             }
@@ -537,8 +523,7 @@ public class Simulation {
             }
 
 
-
-            if (auxVars.getBrre() > .99 * Constants.D_R_ORBIT && phase == 1) {
+            if (auxVars.getBrre() > 0.99 * Constants.D_R_ORBIT && phase == 1) {
                 phase = 2;
                 phaseChanged = true;
             }
@@ -547,7 +532,7 @@ public class Simulation {
             /* Weg zum Mond aufnehmen, wenn nach 10h der Winkel zwischen
             dem Vektor Erde - Mond und dem Vektor Rakete - Erde groesser als x PI wird*/
 
-            if (yn.getT() > 2500 && phase == 2) {
+            if (yn.getT() > 2500.0 && phase == 2) {
                 phase = 3;
                 phaseChanged = true;
             }
@@ -557,10 +542,10 @@ public class Simulation {
             /* Wenn noch x t Treibstoff uebrig sind: Beschleunigung wegnehmen,
             Einleiten der Phase 4 */
             Vector2d temp = (Vector2d) yn.getMoon().getR().clone();
-            temp.scale(-1);
+            temp.scale(-1.0);
             double tmp = calcGravityPotential(temp, yn.getEarth().getR(), yn.getMoon().getR()) - calcGravityPotential(yn.getRocket().getR(), yn.getEarth().getR(), yn.getMoon().getR());
 
-            if (yn.getRocket().getV().length() * yn.getRocket().getV().length() / 2 > 0.999 * tmp && phase == 3) {
+            if (yn.getRocket().getV().length() * yn.getRocket().getV().length() / 2.0 > 0.999 * tmp && phase == 3) {
                 phase = 4;
                 phaseChanged = true;
             }
@@ -568,8 +553,8 @@ public class Simulation {
             /* PHASE 5*/
             /* Feststellen der kleinsten Entfernung zum Mond - Einleiten der Phase 5 */
 
-            if (((auxVars.getErrm().dot(auxVars.getVrm()) > 0
-                    && auxVars.getBrrm() - Moon.R < 50 * Moon.R)
+            if (((auxVars.getErrm().dot(auxVars.getVrm()) > 0.0
+                    && auxVars.getBrrm() - Moon.R < 50.0 * Moon.R)
                     || (auxVars.getBrrm() - Moon.R < 0.5 * Moon.R))
                     && (phase == 4 || phase == 6)) {
                 phase = 5;
@@ -593,12 +578,12 @@ public class Simulation {
     /**
      * Berechnet das Gravitationpotenzial, das von Erde und Mond auf die Rakete wirkt.
      *
-     * @param r die Position der Rakete
+     * @param r  die Position der Rakete
      * @param re die Position der Erde
      * @param rm die Position des Monds
      * @return das Gravitationspotenzial auf die Rakete
      */
-    public double calcGravityPotential(Vector2d r, Vector2d re, Vector2d rm) {
+    public static double calcGravityPotential(Vector2d r, Vector2d re, Vector2d rm) {
 
         Vector2d r_re = (Vector2d) r.clone();
         r_re.sub(re);
@@ -612,16 +597,16 @@ public class Simulation {
     /**
      * Berechnet die aktuelle Position eines Himmelskörpers.
      *
-     * @param l Entfernung zum Erde-Mond-Schwerpunkt
+     * @param l    Entfernung zum Erde-Mond-Schwerpunkt
      * @param phis Winkelgeschwindigkeit
-     * @param t Zeitpunkt
+     * @param t    Zeitpunkt
      * @param phi0 Startwinkel
      * @return neue Position des Himmelskörpers
      */
     protected static Vector2d calcOrbitPosition(double l, double phis, double t, double phi0) {
         return new Vector2d(
-                l * Math.cos(phis * t + phi0),
-                l * Math.sin(phis * t + phi0));
+                l * StrictMath.cos(phis * t + phi0),
+                l * StrictMath.sin(phis * t + phi0));
     }
 
     public void addControlPhase(ControlPhase newPhase) {

@@ -1,15 +1,10 @@
 package de.fhk.spacequest.controlphases;
 
-import de.fhk.spacequest.simulation.AuxVars;
-import de.fhk.spacequest.simulation.Constants;
-import de.fhk.spacequest.simulation.Earth;
-import de.fhk.spacequest.simulation.Moon;
-import de.fhk.spacequest.simulation.ResultVector;
-import de.fhk.spacequest.simulation.Simulation;
+import de.fhk.spacequest.simulation.*;
+
 import javax.vecmath.Vector2d;
 
 /**
- *
  * @author Robert Giacinto
  */
 public class Phase6 extends ControlPhase {
@@ -45,8 +40,8 @@ public class Phase6 extends ControlPhase {
     public int checkConditions() {
         AuxVars auxVars = getRocketControl().getAuxVars();
 
-        if (((auxVars.getErrm().dot(auxVars.getVrm()) > 0
-                && auxVars.getBrrm() - Moon.R < 50 * Moon.R)
+        if (((auxVars.getErrm().dot(auxVars.getVrm()) > 0.0
+                && auxVars.getBrrm() - Moon.R < 50.0 * Moon.R)
                 || (auxVars.getBrrm() - Moon.R < 0.5 * Moon.R))) {
             return 5;
         } else {

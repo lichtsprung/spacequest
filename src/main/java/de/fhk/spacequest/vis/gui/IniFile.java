@@ -10,7 +10,7 @@ public class IniFile {
 
     Properties p;
     String defaultIni = "default.ini";
-    String active, inactive, clockBG, clock, infopanel, text_bgd, slider, ufo, earth, moon, starfield;
+    String active = null, inactive = null, clockBG = null, clock = null, infopanel = null, text_bgd = null, slider = null, ufo = null, earth = null, moon = null, starfield = null;
 
     public IniFile() {
         p = new Properties();

@@ -4,15 +4,14 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Polygon;
 
 /**
- *
  * @author Robert Giacinto
  */
 public abstract class VisObject {
 
-    protected Polygon poly;
-    protected float x, y;
-    protected Image texture;
-    protected Image scaledTexture;
+    protected Polygon poly = null;
+    protected float x = 0.0F, y = 0.0F;
+    protected Image texture = null;
+    protected Image scaledTexture = null;
 
     public abstract void draw(Camera cam);
 

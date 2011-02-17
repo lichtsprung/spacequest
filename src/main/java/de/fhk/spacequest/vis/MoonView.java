@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 
 /**
- *
  * @author Robert Giacinto
  */
 public final class MoonView extends VisObject {
@@ -30,10 +29,10 @@ public final class MoonView extends VisObject {
         y = (float) moonModel.getR().y;
 
         poly = new Polygon();
-        poly.addPoint((float) (x - Moon.R), (float) (y - Moon.R));
-        poly.addPoint((float) (x + Moon.R), (float) (y - Moon.R));
-        poly.addPoint((float) (x + Moon.R), (float) (y + Moon.R));
-        poly.addPoint((float) (x - Moon.R), (float) (y + Moon.R));
+        poly.addPoint((float) ((double) x - Moon.R), (float) ((double) y - Moon.R));
+        poly.addPoint((float) ((double) x + Moon.R), (float) ((double) y - Moon.R));
+        poly.addPoint((float) ((double) x + Moon.R), (float) ((double) y + Moon.R));
+        poly.addPoint((float) ((double) x - Moon.R), (float) ((double) y + Moon.R));
     }
 
     @Override

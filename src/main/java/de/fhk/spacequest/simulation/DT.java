@@ -9,7 +9,7 @@ public class DT {
     /**
      * Das aktuelle delta t der Simulation.
      */
-    private double dtn;
+    private double dtn = 0.0;
 
     /**
      * Gibt das aktuelle Delta t zurück.
@@ -29,6 +29,5 @@ public class DT {
         this.dtn = dtn;
     }
 
-    
 
 }
