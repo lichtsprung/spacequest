@@ -177,7 +177,7 @@
             </properties>
             <activation>
                 <os>
-                    <family>win</family>
+                    <family>windows</family>
                     <arch>i386</arch>
                 </os>
             </activation>
@@ -189,7 +189,7 @@
             </properties>
             <activation>
                 <os>
-                    <family>win</family>
+                    <family>windows</family>
                     <arch>amd64</arch>
                 </os>
             </activation>
@@ -223,6 +223,11 @@
             <properties>
                 <build.type>mac</build.type>
             </properties>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
         </profile>
     </profiles>
 
