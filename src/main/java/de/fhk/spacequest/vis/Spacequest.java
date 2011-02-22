@@ -122,7 +122,7 @@ public class Spacequest extends BasicGame {
         earth = new EarthView(currentState.getEarth(), iniFile.get(9));
         rocket = new RocketView(currentState.getRocket(), iniFile.get(8));
         moon = new MoonView(currentState.getMoon(), iniFile.get(10));
-        starfield = new Image(Spacequest.class.getResource(iniFile.get(11)).getFile()).getScaledCopy(screenWidth, screenHeight);
+        starfield = new Image(getClass().getResourceAsStream(iniFile.get(11)), "stars", false).getScaledCopy(screenWidth, screenHeight);
         starfield.setAlpha(0.3f);
         updateTextureScaling();
     }

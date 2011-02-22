@@ -21,9 +21,9 @@ public class PhaseButton extends ToggleButton {
         super(x, y, 35.0F, 35.0F, gui);
         this.n = n;
         try {
-            active = new Image(PhaseButton.class.getResource(s_active).getFile());
+            active = new Image(getClass().getResourceAsStream(s_active), "button_active", false);
             active.setAlpha(0.7f);
-            inactive = new Image(PhaseButton.class.getResource(s_inactive).getFile());
+            inactive = new Image(getClass().getResourceAsStream(s_inactive), "button_inactive", false);
             inactive.setAlpha(0.7f);
         } catch (SlickException ex) {
             Logger.getLogger(PresetToggleButton.class.getName()).log(Level.SEVERE, null, ex);

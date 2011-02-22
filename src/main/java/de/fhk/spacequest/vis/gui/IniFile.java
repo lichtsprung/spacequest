@@ -9,13 +9,13 @@ import java.util.Properties;
 public class IniFile {
 
     Properties p;
-    String defaultIni = "default.ini";
+    String defaultIni = "/data/default.ini";
     String active = null, inactive = null, clockBG = null, clock = null, infopanel = null, text_bgd = null, slider = null, ufo = null, earth = null, moon = null, starfield = null;
 
     public IniFile() {
         p = new Properties();
         try {
-            InputStream in = IniFile.class.getResourceAsStream(defaultIni);
+            InputStream in = getClass().getResourceAsStream(defaultIni);
             p.load(in);
             clockBG = p.getProperty("clockBG");
             clock = p.getProperty("clock");
@@ -72,20 +72,20 @@ public class IniFile {
      *
      * Beispiel INI-File:
      * [clock]
-     * clockBG=pics/digitalClock.png
-     * clock=pics/clock.png
+     * clockBG=data/digitalClock.png
+     * clock=data/clock.png
      *
      * [button]
-     * active=pics/Button_active.png
-     * inactive=pics/Button_inactive.png
-     * infopanel=pics/infopanel.png
-     * text_bgd=pics/text_bgd.png
-     * slider=pics/Button_slider.png
+     * active=data/Button_active.png
+     * inactive=data/Button_inactive.png
+     * infopanel=data/infopanel.png
+     * text_bgd=data/text_bgd.png
+     * slider=data/Button_slider.png
      *
      * [view]
-     * ufo =/pics/ufo.png
-     * earth=/pics/earth.png
-     * moon=/pics/moon.png
-     * starfield=pics/starfield.gif
+     * ufo =/data/ufo.png
+     * earth=/data/earth.png
+     * moon=/data/moon.png
+     * starfield=data/starfield.gif
      */
 }

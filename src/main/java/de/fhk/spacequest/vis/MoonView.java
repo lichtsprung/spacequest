@@ -13,7 +13,7 @@ public final class MoonView extends VisObject {
     private Moon moonModel;
 
     public MoonView(Moon moonModel, String s_moon) throws SlickException {
-        texture = new Image(MoonView.class.getResource(s_moon).getFile());
+        texture = new Image(getClass().getResourceAsStream(s_moon), "moon", false);
 
         setMoonModel(moonModel);
     }

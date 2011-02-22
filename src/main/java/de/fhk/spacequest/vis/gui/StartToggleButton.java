@@ -17,9 +17,9 @@ public class StartToggleButton extends ToggleButton {
     public StartToggleButton(float x, float y, GUI gui, String s_active, String s_inactive) throws SlickException {
         super(x, y, 35.0F, 35.0F, gui);
 
-        active = new Image(StartToggleButton.class.getResource(s_active).getFile());
+        active = new Image(getClass().getResourceAsStream(s_active), "button_active", false);
         active.setAlpha(0.7f);
-        inactive = new Image(StartToggleButton.class.getResource(s_inactive).getFile());
+        inactive = new Image(getClass().getResourceAsStream(s_inactive), "button_inactive", false);
         inactive.setAlpha(0.7f);
     }
 

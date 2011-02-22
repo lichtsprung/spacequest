@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<GUI>
-	<ELEMENT type="clock" subtype="digital" draggable="true" x="20" y="690"/>
-	<ELEMENT type="button" subtype="start_toggle" draggable="false" x="20" y="10"/>
-	<ELEMENT type="button" subtype="preset_toggle" draggable="false" x="60" y="10"/>
-	<ELEMENT type="slider" subtype="zoom" min="1.9292545E-6f" max="3.2829426E-5f" draggable="true" x="40" y="400" size="200" />
-	<ELEMENT type="factory" subtype="phase_button" draggable="false" x="950" y="10" alignment="vertical" />
-</GUI>

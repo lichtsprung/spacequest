@@ -19,7 +19,7 @@ public class SliderButton extends Button {
         this.slider = slider;
         value = slider.width / 2.0F;
 
-        texture = new Image(SliderButton.class.getResource(s_slider).getFile());
+        texture = new Image(getClass().getResourceAsStream(s_slider), "slider", false);
         texture.setAlpha(0.7f);
     }
 

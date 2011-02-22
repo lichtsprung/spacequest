@@ -13,8 +13,7 @@ public final class EarthView extends VisObject {
     private Earth earthModel;
 
     public EarthView(Earth earthModel, String s_earth) throws SlickException {
-        System.out.println("");
-        texture = new Image(EarthView.class.getResource(s_earth).getFile());
+        texture = new Image(getClass().getResourceAsStream(s_earth), "earth", false);
 
         setEarthModel(earthModel);
     }

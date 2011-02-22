@@ -11,6 +11,9 @@
     <properties>
         <main.class>de.fhk.spacequest.SpacequestMain</main.class>
         <lwjgl.natives>${project.build.directory}/lib</lwjgl.natives>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lwjgl.version>2.6</lwjgl.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
@@ -65,16 +68,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.1</version>
                 <configuration>
                     <artifactItems>
                         <artifactItem>
                             <groupId>org.lwjgl</groupId>
                             <artifactId>lwjgl-native</artifactId>
-                            <version>2.1.0</version>
+                            <version>${lwjgl.version}</version>
                             <type>jar</type>
-                            <classifier>${build.type}</classifier>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <outputDirectory>${project.build.directory}/lib/natives</outputDirectory>
                             <overWrite>true</overWrite>
                         </artifactItem>
                     </artifactItems>
@@ -82,13 +83,14 @@
                 <executions>
                     <execution>
                         <id>unpack</id>
-                        <phase>compile</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -111,6 +113,7 @@
                     </arguments>
                 </configuration>
             </plugin>
+
 
         </plugins>
     </build>
@@ -141,12 +144,16 @@
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-native</artifactId>
-            <version>2.1.0</version>
-            <classifier>${build.type}</classifier>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-util</artifactId>
+            <version>${lwjgl.version}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -156,8 +163,9 @@
             <url>http://slick.cokeandcode.com/mavenrepo/</url>
         </repository>
         <repository>
-            <id>b2s-repo</id>
-            <url>http://b2s-repo.googlecode.com/svn/trunk/mvn-repo</url>
+            <id>lwjgl</id>
+            <name>lwjgl</name>
+            <url>http://adterrasperaspera.com/lwjgl</url>
         </repository>
         <repository>
             <id>central</id>
@@ -169,66 +177,5 @@
         </repository>
     </repositories>
 
-    <profiles>
-        <profile>
-            <id>win32</id>
-            <properties>
-                <build.type>win32</build.type>
-            </properties>
-            <activation>
-                <os>
-                    <family>windows</family>
-                    <arch>i386</arch>
-                </os>
-            </activation>
-        </profile>
-        <profile>
-            <id>win64</id>
-            <properties>
-                <build.type>win64</build.type>
-            </properties>
-            <activation>
-                <os>
-                    <family>windows</family>
-                    <arch>amd64</arch>
-                </os>
-            </activation>
-        </profile>
-        <profile>
-            <id>linux64</id>
-            <properties>
-                <build.type>linux64</build.type>
-            </properties>
-            <activation>
-                <os>
-                    <family>unix</family>
-                    <arch>amd64</arch>
-                </os>
-            </activation>
-        </profile>
-        <profile>
-            <id>linux32</id>
-            <properties>
-                <build.type>linux32</build.type>
-            </properties>
-            <activation>
-                <os>
-                    <family>unix</family>
-                    <arch>i386</arch>
-                </os>
-            </activation>
-        </profile>
-        <profile>
-            <id>mac</id>
-            <properties>
-                <build.type>mac</build.type>
-            </properties>
-            <activation>
-                <os>
-                    <family>mac</family>
-                </os>
-            </activation>
-        </profile>
-    </profiles>
 
 </project>
