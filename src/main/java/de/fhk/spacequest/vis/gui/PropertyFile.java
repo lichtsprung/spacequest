@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Adrian Wagner
  */
-public abstract class PropertyFile {
+public class PropertyFile {
 
     private static String[] elementTypes = {"button", "clock", "slider", "factory"};
     private static String[] buttonSubtypes = {"start_toggle", "preset_toggle"};
@@ -24,13 +24,13 @@ public abstract class PropertyFile {
     private static String[] sliderSubtypes = {"zoom"};
     private static String[] factorySubtypes = {"phase_button"};
 
-    public static List<GUIComponent> createGUIElements(String pathToFile, GUI gui) throws Exception {
+    public List<GUIComponent> createGUIElements(String pathToFile, GUI gui) throws Exception {
 
         ArrayList<GUIComponent> components = new ArrayList<GUIComponent>();
 
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = builderFactory.newDocumentBuilder();
-        InputStream in = PropertyFile.class.getResourceAsStream(pathToFile);
+        InputStream in = getClass().getResourceAsStream(pathToFile);
         Document template = builder.parse(in);
 
 
@@ -74,7 +74,7 @@ public abstract class PropertyFile {
 
     }
 
-    private static GUIComponent createButtonFromNode(Element node, GUI gui) {
+    private GUIComponent createButtonFromNode(Element node, GUI gui) {
 
         GUIComponent component = null;
 
@@ -106,7 +106,7 @@ public abstract class PropertyFile {
         return component;
     }
 
-    private static GUIComponent createClockFromNode(Element node, GUI gui) {
+    private GUIComponent createClockFromNode(Element node, GUI gui) {
 
         GUIComponent component = null;
 
@@ -138,7 +138,7 @@ public abstract class PropertyFile {
         return component;
     }
 
-    private static GUIComponent createSliderFromNode(Element node, GUI gui) {
+    private GUIComponent createSliderFromNode(Element node, GUI gui) {
 
         GUIComponent component = null;
 
@@ -167,7 +167,7 @@ public abstract class PropertyFile {
         return component;
     }
 
-    private static void createFactoryFromNode(Element node, Collection components, GUI gui) {
+    private void createFactoryFromNode(Element node, Collection<GUIComponent> components, GUI gui) {
 
         String subtype = node.getAttribute("subtype");
 

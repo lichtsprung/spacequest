@@ -114,9 +114,10 @@ public final class GUI {
             addCompoment(pb);
         }
         */
+        PropertyFile p = new PropertyFile();
 
         try {
-            for (GUIComponent gc : PropertyFile.createGUIElements("default.xml", this)) {
+            for (GUIComponent gc : p.createGUIElements("/data/default.xml", this)) {
                 addCompoment(gc);
             }
         } catch (Exception error) {
