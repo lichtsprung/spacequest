@@ -1,14 +1,10 @@
 package de.fhk.spacequest.controlphases;
 
-import de.fhk.spacequest.simulation.AuxVars;
-import de.fhk.spacequest.simulation.Constants;
-import de.fhk.spacequest.simulation.Moon;
-import de.fhk.spacequest.simulation.ResultVector;
-import de.fhk.spacequest.simulation.Simulation;
+import de.fhk.spacequest.simulation.*;
+
 import javax.vecmath.Vector2d;
 
 /**
- *
  * @author Robert Giacinto
  */
 public class Phase5 extends ControlPhase {

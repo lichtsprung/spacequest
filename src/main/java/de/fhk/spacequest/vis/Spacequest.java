@@ -4,6 +4,7 @@ import de.fhk.spacequest.controlphases.ControlPhase;
 import de.fhk.spacequest.simulation.Constants;
 import de.fhk.spacequest.simulation.ResultVector;
 import de.fhk.spacequest.simulation.Simulation;
+import de.fhk.spacequest.vis.gui.AbstractGUI;
 import de.fhk.spacequest.vis.gui.GUI;
 import de.fhk.spacequest.vis.gui.IniFile;
 import org.newdawn.slick.*;
@@ -66,7 +67,7 @@ public class Spacequest extends BasicGame {
      */
     private boolean moonPhase = false;
     private boolean useCamPresets = false;
-    private GUI gui = null;
+    private AbstractGUI abstractGui = null;
     IniFile iniFile;
     private int screenWidth, screenHeight;
 
@@ -100,7 +101,7 @@ public class Spacequest extends BasicGame {
 
         simulation = new Simulation((double) (10 * 1000), (double) (300 * 1000), false, false);
         simulation.updateSimulationState();
-        gui = new GUI(this, input, iniFile);
+        abstractGui = new GUI(this, input, iniFile);
 
         cam = new Camera((float) (-Constants.LE), 0.0F, screenWidth, screenHeight, 2.6053895E-5f, container.getGraphics());
         cam.loadPreset(Camera.presetEarth);
@@ -136,7 +137,7 @@ public class Spacequest extends BasicGame {
         rocket.setRocketModel(currentState.getRocket());
         moon.setMoonModel(currentState.getMoon());
 
-        gui.updateComponents();
+        abstractGui.updateComponents();
 
 
         //TODO Das ist hässlich, die Presetüberpüfungen müssen nochmal neu gemacht werden.
@@ -204,7 +205,7 @@ public class Spacequest extends BasicGame {
 
     @Override
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
-        if (!gui.hasFocus()) {
+        if (!abstractGui.hasFocus()) {
             cam.x += ((float) (newx - oldx) / cam.zoom) * -1.0F;
             cam.y += ((float) (newy - oldy) / cam.zoom) * -1.0F;
         }
@@ -241,7 +242,7 @@ public class Spacequest extends BasicGame {
 
         moon.draw(cam);
 
-        gui.draw(g);
+        abstractGui.draw(g);
     }
 
     public void addPhase(ControlPhase newPhase) {

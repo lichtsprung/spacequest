@@ -1,14 +1,14 @@
-package de.fhk.spacequest.vis.gui;
+package de.fhk.spacequest.vis.gui.components;
 
+import de.fhk.spacequest.vis.gui.GUI;
 import org.newdawn.slick.SlickException;
- 
+
 /**
- *
  * @author Robert Giacinto / Adrian Wagner
  */
 public class ZoomSlider extends Slider {
 
-    public ZoomSlider(float x, float y, float min, float max, float length, GUI gui, String s_active) throws SlickException{
+    public ZoomSlider(float x, float y, float min, float max, float length, GUI gui, String s_active) throws SlickException {
         super(x, y, min, max, length, gui, s_active);
     }
 

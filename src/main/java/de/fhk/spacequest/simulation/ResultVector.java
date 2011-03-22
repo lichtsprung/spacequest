@@ -3,7 +3,7 @@ package de.fhk.spacequest.simulation;
 /**
  * Diese Klasse wird zur Speicherung des Simulationszustandes zu einem Zeitpunkt t
  * verwendet.
- * 
+ *
  * @author Robert Giacinto
  */
 public class ResultVector {
@@ -28,9 +28,9 @@ public class ResultVector {
      * Erstellt einen neuen Ergebnisvektor für den Zeitpunkt t.
      *
      * @param rocket der Zustand der Rakete
-     * @param earth der Zustand der Erde
-     * @param moon der Zustand des Monds
-     * @param t der Zeitpunkt
+     * @param earth  der Zustand der Erde
+     * @param moon   der Zustand des Monds
+     * @param t      der Zeitpunkt
      */
     public ResultVector(Rocket rocket, Earth earth, Moon moon, double t) {
         this.rocket = rocket;
@@ -62,7 +62,7 @@ public class ResultVector {
         return rocket;
     }
 
-    
+
     /**
      * Gibt die Erde zurück.
      *
@@ -82,7 +82,6 @@ public class ResultVector {
         return moon;
     }
 
- 
 
     /**
      * Gibt des Zeitpunkt zurück.
@@ -103,6 +102,4 @@ public class ResultVector {
     }
 
 
-
-  
 }

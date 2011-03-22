@@ -2,6 +2,7 @@ package de.fhk.spacequest.controlphases;
 
 /**
  * Speichert die Informationen, die während der Simulation angezeigt werden können.
+ *
  * @author Robert Giacinto
  */
 public class PhaseInfo {

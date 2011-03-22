@@ -1,6 +1,7 @@
-package de.fhk.spacequest.vis.gui;
+package de.fhk.spacequest.vis.gui.components;
 
 import de.fhk.spacequest.controlphases.ControlPhase;
+import de.fhk.spacequest.vis.gui.GUI;
 
 import java.util.ArrayList;
 import java.util.List;

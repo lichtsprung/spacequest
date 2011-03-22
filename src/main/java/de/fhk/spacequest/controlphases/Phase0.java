@@ -1,7 +1,6 @@
 package de.fhk.spacequest.controlphases;
 
 /**
- *
  * @author Robert Giacinto
  */
 public class Phase0 extends ControlPhase {
