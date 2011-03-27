@@ -1,7 +1,5 @@
 package de.fhk.spacequest.vis;
 
-import de.fhk.spacequest.simulation.Earth;
-import de.fhk.spacequest.simulation.Rocket;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

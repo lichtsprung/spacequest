@@ -2,7 +2,6 @@ package de.fhk.spacequest.vis;
 
 import de.fhk.spacequest.controlphases.ControlPhase;
 import de.fhk.spacequest.simulation.Constants;
-import de.fhk.spacequest.simulation.ResultVector;
 import de.fhk.spacequest.simulation.Simulation;
 import de.fhk.spacequest.vis.gui.AbstractGUI;
 import de.fhk.spacequest.vis.gui.GUI;

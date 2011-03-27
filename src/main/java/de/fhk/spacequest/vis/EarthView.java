@@ -1,6 +1,5 @@
 package de.fhk.spacequest.vis;
 
-import de.fhk.spacequest.simulation.Earth;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;

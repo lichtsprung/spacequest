@@ -12,10 +12,10 @@ import org.newdawn.slick.MouseListener;
  */
 public abstract class GUIComponent implements MouseListener {
 
-    protected float width;
+    public float width;
     protected float height;
-    protected float x;
-    protected float y;
+    public float x;
+    public float y;
     protected GUI gui;
 
     protected GUIComponent(float x, float y, float width, float height, GUI gui) {
