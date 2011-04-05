@@ -1,42 +1,40 @@
 package de.fhk.spacequest;
 
-import de.fhk.spacequest.vis.Spacequest;
-
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.math.ode.DerivativeException;
+import org.apache.commons.math.ode.FirstOrderDifferentialEquations;
+import org.apache.commons.math.ode.FirstOrderIntegrator;
+import org.apache.commons.math.ode.IntegratorException;
+import org.apache.commons.math.ode.nonstiff.*;
 
 /**
  * Mainklasse der Visualisierung
- *
- * @author Robert Giacinto
  */
 public class SpacequestMain {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
+    FirstOrderDifferentialEquations test = new FirstOrderDifferentialEquations() {
+      @Override
+      public int getDimension() {
+        return 1;
+      }
 
-        Logger.getLogger(SpacequestMain.class.getName()).log(Level.INFO, "Loading dependencies...");
+      @Override
+      public void computeDerivatives(double t, double[] y, double[] yDot) throws DerivativeException {
+        yDot[0] = 1;
+      }
+    };
 
-        String os = System.getProperty("os.name");
-        String arch = System.getProperty("os.arch");
-
-
-        if (os.equalsIgnoreCase("Linux")) {
-            File f = new File("lib/natives/linux");
-            System.setProperty("org.lwjgl.librarypath", f.getAbsolutePath());
-            System.setProperty("net.java.games.input.librarypath", f.getAbsolutePath());
-        } else if (os.contains("Win")) {
-            File f = new File("lib/natives/windows");
-            System.setProperty("org.lwjgl.librarypath", f.getAbsolutePath());
-            System.setProperty("net.java.games.input.librarypath", f.getAbsolutePath());
-        } else if (os.contains("mac")) {
-            File f = new File("lib/natives/macosx");
-            System.setProperty("org.lwjgl.librarypath", f.getAbsolutePath());
-            System.setProperty("net.java.games.input.librarypath", f.getAbsolutePath());
-        }
-
-
-        Spacequest sq = new Spacequest(1024, 768);
+    FirstOrderIntegrator integrator = new AdamsMoultonIntegrator(1,1E-10,0.5,0.1,0.05);
+    double[] y = new double[1];
+    y[0] = 0;
+    try {
+      integrator.integrate(test, 0.0, y, 4, y);
+      System.out.println(y[0]);
+    } catch (DerivativeException e) {
+      System.out.println(e);
+    } catch (IntegratorException e) {
+      System.out.println(e);
     }
+  }
 
 }

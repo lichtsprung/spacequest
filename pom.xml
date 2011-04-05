@@ -106,7 +106,7 @@
                 <configuration>
                     <executable>java</executable>
                     <arguments>
-                        <argument>-Djava.library.path=${lwjgl.natives}</argument>
+                       <argument>-Djava.library.path=${lwjgl.natives}</argument>
                         <argument>-classpath</argument>
                         <classpath/>
                         <argument>${main.class}</argument>
